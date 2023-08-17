@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 @SpringBootApplication
 public class SimpleGarganttuaSpringEventAsset {
 	
-	
 	public static void main(String args[]) {
 		SpringApplication.run(SimpleGarganttuaSpringEventAsset.class, args);
 	}
