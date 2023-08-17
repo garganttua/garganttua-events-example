@@ -48,7 +48,7 @@
 		"name": "kafka",
 		"type": "kafka",
 		"version": "1.0.0",
-		"configuration": "url=localhost:9092&maxPollRecords=1&enableAutoCommit=false&autoOffsetReset=latest&partitionsAutoScalling=true"
+		"configuration": "url=localhost:29092&maxPollRecords=1&enableAutoCommit=false&autoOffsetReset=latest&partitionsAutoScalling=true&allowAutoCreateTopics=true"
 	}
 	],
 	"routes": 
