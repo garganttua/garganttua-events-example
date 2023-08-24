@@ -31,6 +31,7 @@ public class SimpleGarganttuaEventsStandaloneAsset {
 		IGGEventsContextSourceConfigurationRegistry configRegistry = new GGEventsContextSourceConfigurationRegistry();
 		String[] contextFiles = {"src/main/resources/context.json"};
 		String[] pack = {"com.garganttua"};
+		
 		configRegistry.registerContextSourceConfiguration(new GGEventsContextSourceConfiguration(GGEventsContextJsonFileSource.SOURCE_NAME, contextFiles ));
 
 		GGEventsContextEngine engine = new GGEventsContextEngine();
