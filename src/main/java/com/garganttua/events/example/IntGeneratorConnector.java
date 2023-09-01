@@ -7,15 +7,16 @@ import java.util.concurrent.ExecutorService;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.garganttua.events.context.GGEventsContextSubscription;
 import com.garganttua.events.spec.annotations.GGEventsConnector;
 import com.garganttua.events.spec.enums.GGEventsMediaType;
 import com.garganttua.events.spec.exceptions.GGEventsConnectorException;
-import com.garganttua.events.spec.exceptions.GGEventsCoreException;
-import com.garganttua.events.spec.exceptions.GGEventsCoreProcessingException;
+import com.garganttua.events.spec.exceptions.GGEventsException;
+import com.garganttua.events.spec.exceptions.GGEventsProcessingException;
 import com.garganttua.events.spec.interfaces.IGGEventsConnector;
+import com.garganttua.events.spec.interfaces.IGGEventsEngine;
 import com.garganttua.events.spec.interfaces.IGGEventsMessageHandler;
 import com.garganttua.events.spec.interfaces.IGGEventsObjectRegistryHub;
+import com.garganttua.events.spec.interfaces.context.IGGEventsContextSubscription;
 import com.garganttua.events.spec.objects.GGEventsContextObjDescriptor;
 import com.garganttua.events.spec.objects.GGEventsExchange;
 import com.garganttua.events.spec.objects.GGEventsJourneyStep;
@@ -25,24 +26,19 @@ import ch.qos.logback.core.testUtil.RandomUtil;
 import lombok.Getter;
 import lombok.Setter;
 
-@GGEventsConnector(type = "int-generator", version = "1.0.0")
+@GGEventsConnector(type = "int-generator", version = "1.0")
 public class IntGeneratorConnector implements IGGEventsConnector {
 
 	@Getter
 	@Setter
-	private String name;
+	private String name = "int-generator";
 	private ExecutorService poolExecutor;
 	private IGGEventsMessageHandler messageHandler;
 	private String tenantId;
 
 	@Override
-	public void handle(GGEventsExchange exchange) throws GGEventsCoreProcessingException, GGEventsCoreException {
+	public void handle(GGEventsExchange exchange) throws GGEventsProcessingException, GGEventsException {
 		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public String getType() {
-		return "int-generator";
 	}
 
 	@Override
@@ -53,15 +49,10 @@ public class IntGeneratorConnector implements IGGEventsConnector {
 
 	@Override
 	public void setConfiguration(String configuration, String tenantId, String clusterId, String assetId,
-			IGGEventsObjectRegistryHub objectRegistries) throws GGEventsCoreException {
+			IGGEventsObjectRegistryHub objectRegistries, IGGEventsEngine engine) throws GGEventsException {
 		this.tenantId = tenantId;
 	}
 
-	@Override
-	public void applyConfiguration() throws GGEventsCoreException {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public GGEventsContextObjDescriptor getDescriptor() {
@@ -100,7 +91,7 @@ public class IntGeneratorConnector implements IGGEventsConnector {
 						public void run(){
 							try {
 								messageHandler.handle(exchange);
-							} catch (GGEventsCoreException e) {
+							} catch (GGEventsException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
@@ -111,7 +102,7 @@ public class IntGeneratorConnector implements IGGEventsConnector {
 					
 					
 					try {
-						Thread.sleep(5000);
+						Thread.sleep(10000);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -126,19 +117,24 @@ public class IntGeneratorConnector implements IGGEventsConnector {
 		// TODO Auto-generated method stub
 
 	}
-
+	
 	@Override
-	public void registerConsumer(GGEventsContextSubscription subscription, IGGEventsMessageHandler messageHandler,
-			String tenantId, String clusterId, String assetId) {
-		this.messageHandler = messageHandler;
-
+	public void applyConfiguration() throws GGEventsException {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
-	public void registerProducer(GGEventsContextSubscription subscription, String tenantId, String clusterId,
+	public void registerConsumer(IGGEventsContextSubscription subscription, IGGEventsMessageHandler messageHandler,
+			String tenantId, String clusterId, String assetId) {
+		this.messageHandler = messageHandler;
+	}
+
+	@Override
+	public void registerProducer(IGGEventsContextSubscription subscription, String tenantId, String clusterId,
 			String assetId) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 }
