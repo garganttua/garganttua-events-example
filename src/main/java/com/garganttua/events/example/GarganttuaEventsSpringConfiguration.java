@@ -1,11 +1,13 @@
 package com.garganttua.events.example;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.garganttua.events.context.json.sources.file.GGEventsContextJsonFileSource;
 import com.garganttua.events.spec.interfaces.IGGEventsContextSource;
+import com.garganttua.events.spring.IGGEventsEngineSpringBean;
 
 @Configuration
 public class GarganttuaEventsSpringConfiguration {
